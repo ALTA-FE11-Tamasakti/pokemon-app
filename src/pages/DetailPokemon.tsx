@@ -4,6 +4,7 @@ import { FC } from "react";
 
 import Layout from "../components/Layout";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 interface Pokemon {
   id: number;
@@ -56,7 +57,7 @@ const PokemonDetail: FC<Props> = ({}) => {
   return (
     <>
       <Layout>
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid gap-4">
           <div
             className="card lg:card-compact  bg-white shadow-xl"
             style={{ width: "90%", margin: "0 auto" }}
@@ -116,7 +117,7 @@ const PokemonDetail: FC<Props> = ({}) => {
                   className="btn btn-outline btn-error"
                   onClick={(event) => handleCatch(event, pokemon)}
                 >
-                  Catch
+                  <Link to="/CaughtPokemons">Catch</Link>
                 </button>
               </h2>
             </div>

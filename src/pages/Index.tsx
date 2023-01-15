@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Card from "../components/Card";
+import Footer from "../components/Footer";
 
 import Layout from "../components/Layout";
 import "../styles/App.css";
@@ -14,7 +15,7 @@ interface Pokemon {
 function Index() {
   const [pokemon, setPokemon] = useState<Pokemon[]>([]);
 
-  const randomCountPokemon = Math.floor(Math.random() * 50);
+  const randomCountPokemon = Math.floor(Math.random() * 100);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,11 +30,12 @@ function Index() {
 
   return (
     <Layout>
-      <div className="grid  grid-cols-2 gap-3 p-3">
+      <div className="grid  grid-cols-4 gap-3 p-3">
         {pokemon.map((data) => (
           <Card key={data.id} name={data.name} id={data.id} />
         ))}
       </div>
+      <Footer />
     </Layout>
   );
 }

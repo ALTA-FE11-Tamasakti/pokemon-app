@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
 interface Pokemon {
   id: number;
@@ -30,6 +31,20 @@ const FavoritePokemons: FC = () => {
     }
   }, []);
 
+  function saveToPokeBall(pokemon: Pokemon) {
+    const existingPokemon = caughtPokemons.find((p) => p.id === pokemon.id);
+    if (existingPokemon) {
+      alert("Pokemon sudah ada dalam Pokeball");
+      return;
+    }
+    setCaughtPokemons((prevPoke) => [...prevPoke, pokemon]);
+    alert("Pokemon berhasil ditambakan ke Pokeball");
+    localStorage.setItem(
+      "pokeball",
+      JSON.stringify([...caughtPokemons, pokemon])
+    );
+  }
+
   function releasePokemon(pokemon: Pokemon) {
     let dupeData: Pokemon[] = caughtPokemons.slice();
     const filterPokemon = dupeData.filter((item) => item.id !== pokemon.id);
@@ -40,7 +55,8 @@ const FavoritePokemons: FC = () => {
   }
 
   return (
-    <div>
+    <div className="bg-caughtpoke">
+      <Link to="/">Back to Hunting Grounds</Link>
       {caughtPokemons.map((pokemon) => (
         <div key={pokemon.id}>
           <img
@@ -50,7 +66,12 @@ const FavoritePokemons: FC = () => {
           />
           <p>{pokemon.name}</p>
           <div>
-            <button style={{ margin: "1rem" }}>Save to The Ball</button>
+            <button
+              style={{ margin: "1rem" }}
+              onClick={() => saveToPokeBall(pokemon)}
+            >
+              Save to PokeBall
+            </button>
             <button onClick={() => releasePokemon(pokemon)}>Release</button>
           </div>
         </div>

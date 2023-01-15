@@ -1,23 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import homeSvg from "../assets/Battle_icon-icons.com_67586.svg";
 const Navbar = () => {
   return (
-    <div className="navbar bg-base-100">
-      <div className="navbar-start">
+    <div className="navbar bg-white">
+      <div className="navbar-center" style={{ margin: "0 auto" }}>
         <Link to="/">
-          <a className="btn btn-ghost normal-case text-xl">PokeApi</a>
+          <img src={homeSvg} />
         </Link>
-      </div>
-      <div className="navbar-center">
-        <Link to="/CaughPokemons">Hunting Grounds</Link>
-      </div>
-      <div className="navbar-end">
-        <input
-          type="text"
-          placeholder="Type here"
-          className="input input-bordered w-full max-w-xs"
-        />
       </div>
     </div>
   );

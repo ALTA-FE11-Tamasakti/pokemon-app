@@ -3,6 +3,7 @@ import Index from "../pages/Index";
 import PokemonDetail from "../pages/DetailPokemon";
 
 import FavoritePokemons from "../pages/CaughtPokemon";
+import Pokeball from "../pages/Pokeball";
 
 const router = createBrowserRouter([
   {
@@ -15,8 +16,12 @@ const router = createBrowserRouter([
     element: <PokemonDetail />,
   },
   {
-    path: "/CaughPokemons",
+    path: "/CaughtPokemons",
     element: <FavoritePokemons />,
+  },
+  {
+    path: "/pokeball",
+    element: <Pokeball />,
   },
 ]);
 
