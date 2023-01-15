@@ -9,7 +9,9 @@ const Navbar = () => {
           <a className="btn btn-ghost normal-case text-xl">PokeApi</a>
         </Link>
       </div>
-      <div className="navbar-center"></div>
+      <div className="navbar-center">
+        <Link to="/CaughPokemons">Hunting Grounds</Link>
+      </div>
       <div className="navbar-end">
         <input
           type="text"

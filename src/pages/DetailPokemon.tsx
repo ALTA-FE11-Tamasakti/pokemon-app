@@ -28,6 +28,7 @@ interface Props {
 }
 
 const PokemonDetail: FC<Props> = ({}) => {
+  const [caughtPokemons, setCaughtPokemons] = useState<Pokemon[]>([]);
   const { name } = useParams();
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
 
@@ -38,19 +39,20 @@ const PokemonDetail: FC<Props> = ({}) => {
       .catch((err) => console.log(err));
   }, [name]);
 
+  useEffect(() => {
+    localStorage.setItem("caughtPokemons", JSON.stringify(caughtPokemons));
+  }, [caughtPokemons]);
+
   if (!pokemon) return <div>Loading...</div>;
 
-  function handleCatch(data: Pokemon) {
-    const checkPokemon = localStorage.getItem("CatchPoke");
-    if (checkPokemon) {
-      let parsePoke: Pokemon[] = JSON.parse(checkPokemon);
-      parsePoke.push(data);
-      localStorage.setItem("CatchPoke", JSON.stringify(parsePoke));
-    } else {
-      localStorage.setItem("CheckPoke", JSON.stringify([data]));
-    }
+  function handleCatch(event: React.MouseEvent, pokemon: Pokemon) {
+    event.preventDefault();
+    setCaughtPokemons((prevCaughtPokemons) => [...prevCaughtPokemons, pokemon]);
+    localStorage.setItem(
+      "caughtPokemons",
+      JSON.stringify([...caughtPokemons, pokemon])
+    );
   }
-
   return (
     <>
       <Layout>
@@ -110,7 +112,12 @@ const PokemonDetail: FC<Props> = ({}) => {
                       </p>
                     </div>
                   ))}
-                <button className="btn btn-outline btn-error">Catch</button>
+                <button
+                  className="btn btn-outline btn-error"
+                  onClick={(event) => handleCatch(event, pokemon)}
+                >
+                  Catch
+                </button>
               </h2>
             </div>
           </div>
