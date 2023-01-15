@@ -22,6 +22,7 @@ interface Pokemon {
 
 const FavoritePokemons: FC = () => {
   const [caughtPokemons, setCaughtPokemons] = useState<Pokemon[]>([]);
+  const [pokeball, setPokeball] = useState<Pokemon[]>([]);
 
   useEffect(() => {
     const caughtPokemonsFromStorage = localStorage.getItem("caughtPokemons");
@@ -32,17 +33,20 @@ const FavoritePokemons: FC = () => {
   }, []);
 
   function saveToPokeBall(pokemon: Pokemon) {
-    const existingPokemon = caughtPokemons.find((p) => p.id === pokemon.id);
+    const pokeballFromStorage = JSON.parse(
+      localStorage.getItem("pokeball") || "[]"
+    );
+    const existingPokemon = pokeballFromStorage.find(
+      (p: any) => p.id === pokemon.id
+    );
     if (existingPokemon) {
-      alert("Pokemon sudah ada dalam Pokeball");
+      alert("Pokemon sudah ada dalam pokeball");
       return;
     }
-    setCaughtPokemons((prevPoke) => [...prevPoke, pokemon]);
-    alert("Pokemon berhasil ditambakan ke Pokeball");
-    localStorage.setItem(
-      "pokeball",
-      JSON.stringify([...caughtPokemons, pokemon])
-    );
+    const newPokeball = [...pokeballFromStorage, pokemon];
+    setPokeball((prevPoke) => [...prevPoke, pokemon]);
+    alert("Pokemon berhasil ditambakan ke PokeBall");
+    localStorage.setItem("pokeball", JSON.stringify(newPokeball));
   }
 
   function releasePokemon(pokemon: Pokemon) {
