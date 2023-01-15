@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { FC } from "react";
 
 import Layout from "../components/Layout";
@@ -24,13 +24,9 @@ interface Pokemon {
   ];
 }
 
-interface Props {
-  name: string;
-}
-
-const PokemonDetail: FC<Props> = ({}) => {
+const PokemonDetail = () => {
   const [caughtPokemons, setCaughtPokemons] = useState<Pokemon[]>([]);
-  const { name } = useParams();
+  const { name } = useParams<{ name: string }>();
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
 
   useEffect(() => {

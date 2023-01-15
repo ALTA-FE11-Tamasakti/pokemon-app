@@ -7,10 +7,9 @@ interface CardProps {
   name?: string;
   height?: number;
   weight?: number;
-  onClickCatch?: () => void;
 }
 
-const Card: FC<CardProps> = ({ id, name, height, weight, onClickCatch }) => {
+const Card: FC<CardProps> = ({ id, name, height, weight }) => {
   const [imageUrl, setImageUrl] = useState("");
 
   const navigate = useNavigate();
